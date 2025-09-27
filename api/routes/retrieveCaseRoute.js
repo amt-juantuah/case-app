@@ -29,7 +29,7 @@ router.get('/:id', async (req, res, next) => {
         if (caseData) {
             res.json({ success: true, data: caseData });
         } else {
-            res.status(404).json({ success: false, message: 'Case not found' });
+            return res.status(404).json({ success: false, message: 'Case not found' });
         }
     } catch (error) {
         next(error);

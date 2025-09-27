@@ -17,7 +17,7 @@ model Case {
   status      CaseStatus @default(OPEN)
   priority    CasePriority @default(LOW)
   createdDate DateTime @default(now())
-  dueDate     DateTime?
+  dueDate     DateTime
 }
 
 enum CaseStatus {
