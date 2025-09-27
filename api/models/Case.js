@@ -16,4 +16,4 @@ class Case {
     }
 }
 
-export default Case;
+module.exports = Case;
