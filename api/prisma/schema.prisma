@@ -1,0 +1,33 @@
+// This is a Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Case {
+  id          String      @id @default(uuid())
+  title       String
+  description String?
+  status      CaseStatus @default(OPEN)
+  priority    CasePriority @default(LOW)
+  createdDate DateTime @default(now())
+  dueDate     DateTime?
+}
+
+enum CaseStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+enum CasePriority {
+  LOW
+  MEDIUM
+  HIGH
+}
