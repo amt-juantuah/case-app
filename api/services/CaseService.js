@@ -9,7 +9,9 @@ const prisma = new PrismaClient();
  */
 class CaseService {
 
+    // create and add a new case to the database
     async createCase(caseData) {
+        
         // Instantiate Case object (data holder only)
         const caseObj = new Case(caseData);
 
@@ -20,23 +22,26 @@ class CaseService {
                 description: caseObj.description,
                 status: caseObj.status,
                 priority: caseObj.priority,
-                closedAt: caseObj.closedAt,
+                dueDate: caseObj.dueDate,
             },
         });
 
         return new Case(saved); // hydrate DB object as Case
     }
 
+    // get all cases from the database, sorted by openedAt in descending order
     async getAllCases() {
-        const cases = await prisma.case.findMany({ orderBy: { openedAt: 'desc' } });
+        const cases = await prisma.case.findMany({ orderBy: { createdDate: 'desc' } });
         return cases.map(c => new Case(c));
     }
 
+    // get a case by its ID from the database
     async getCaseById(id) {
         const found = await prisma.case.findUnique({ where: { id } });
         return found ? new Case(found) : null;
     }
 
+    // update a case by its ID in the database with new data
     async updateCase(id, caseData) {
         const updated = await prisma.case.update({
             where: { id },
@@ -45,6 +50,7 @@ class CaseService {
         return new Case(updated);
     }
 
+    // start a case by its ID in the database
     async startCase(id) {
         const updated = await prisma.case.update({
             where: { id },
@@ -53,6 +59,7 @@ class CaseService {
         return new Case(updated);
     }
 
+    // close a case by its ID in the database
     async closeCase(id) {
         const updated = await prisma.case.update({
             where: { id },
@@ -61,6 +68,7 @@ class CaseService {
         return new Case(updated);
     }
 
+    // delete a case by its ID from the database
     async deleteCase(id) {
         return await prisma.case.delete({ where: { id } });
     }
