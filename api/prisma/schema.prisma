@@ -11,11 +11,23 @@ datasource db {
 }
 
 model Case {
-  id          Int      @id @default(autoincrement())
-  caseNumber  String   @unique
+  id          String      @id @default(uuid())
   title       String
   description String
-  status      String
+  status      CaseStatus @default(OPEN)
+  priority    CasePriority @default(LOW)
   createdDate DateTime @default(now())
   dueDate     DateTime?
+}
+
+enum CaseStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+enum CasePriority {
+  LOW
+  MEDIUM
+  HIGH
 }
