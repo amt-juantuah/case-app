@@ -13,7 +13,7 @@ datasource db {
 model Case {
   id          String      @id @default(uuid())
   title       String
-  description String
+  description String?
   status      CaseStatus @default(OPEN)
   priority    CasePriority @default(LOW)
   createdDate DateTime @default(now())
