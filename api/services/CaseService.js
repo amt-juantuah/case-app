@@ -1,6 +1,7 @@
-import { PrismaClient } from '@prisma/client';
-import Case from '../models/Case.js';
 
+const Case = require('../models/case.js');
+
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 /**
@@ -74,4 +75,4 @@ class CaseService {
     }
 }
 
-export default CaseService();
+module.exports = new CaseService();
