@@ -1,13 +1,12 @@
-
+/**
+ * Handle the CRUD operations on case tasks
+ */
 const Case = require('../models/case.js');
 
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-/**
- * Service class to handle CRUD 
- * operations on cases
- */
+// Service class to handle CRUD 
 class CaseService {
 
     // create and add a new case to the database
