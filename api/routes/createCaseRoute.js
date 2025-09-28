@@ -1,5 +1,5 @@
 /**
- * Create case tasks
+ * Create case task
  */
 
 const { validStatuses, messages, validPriorities } = require('../constants');
@@ -16,23 +16,27 @@ router.post('/', async (req, res, next) => {
     try {
         const { title, description, status, priority, dueDate } = req.body;
 
+        // Validate information from request body
         if (!title || !dueDate) {
             return res.status(400).json({ success: false, message: messages.title_dueDate_required });
         }
 
-        if (status && !validStatuses.includes(status)) {
+        const statusCap = String(status).toUpperCase(); // convert to uppercase for validation
+        const priorityCap = String(priority).toUpperCase(); // convert to uppercase for validation
+
+        if (statusCap && !validStatuses.includes(statusCap)) {
             return res.status(400).json({ success: false, error: messages.status_invalid });
         }
 
-        if (priority && !validPriorities.includes(priority)) {
+        if (priorityCap && !validPriorities.includes(priorityCap)) {
             return res.status(400).json({ success: false, error: messages.priority_invalid });
         }
 
         const newCaseData = {
             title,
             description: description || '',
-            status: status || 'OPEN',
-            priority: priority || 'LOW',
+            status: statusCap || 'OPEN',
+            priority: priorityCap || 'LOW',
             dueDate: new Date(dueDate)
         };
 

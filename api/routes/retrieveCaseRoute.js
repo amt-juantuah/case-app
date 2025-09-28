@@ -6,6 +6,10 @@ var express = require('express');
 var router = express.Router();
 
 const CaseService = require("../services/caseService.js");
+const { messages } = require('../constants.js');
+const validateCaseExists = require('../middleware/validateCaseExists');
+const validateUuidParam = require('../middleware/validateUuidParam');
+
 
 // Retrieve all cases from the database
 router.get('/', async (req, res, next) => {
@@ -20,17 +24,9 @@ router.get('/', async (req, res, next) => {
 });
 
 // Retrieve a case by its ID from the database
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', validateUuidParam, validateCaseExists, async (req, res, next) => {
     try {
-        const caseId = req.params.id; // string id (UUID)
-
-        const caseData = await CaseService.getCaseById(caseId);
-
-        if (caseData) {
-            res.json({ success: true, data: caseData });
-        } else {
-            return res.status(404).json({ success: false, message: 'Case not found' });
-        }
+        res.json({ success: true, message: messages.case_found, data: req.case });
     } catch (error) {
         next(error);
     }

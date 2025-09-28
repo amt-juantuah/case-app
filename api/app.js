@@ -23,10 +23,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/case', retrieveRouter);
-app.use('/new', createRouter);
-app.use('/clear', deleteRouter);
-app.use('/update', updateRouter);
+app.use('/cases', retrieveRouter);
+app.use('/cases', createRouter);
+app.use('/cases', deleteRouter);
+app.use('/cases', updateRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
