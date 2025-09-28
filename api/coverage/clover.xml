@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1759085937379" clover="3.2.0">
-  <project timestamp="1759085937379" name="All files">
-    <metrics statements="25" coveredstatements="25" conditionals="6" coveredconditionals="5" methods="9" coveredmethods="9" elements="40" coveredelements="39" complexity="0" loc="25" ncloc="25" packages="2" files="2" classes="2"/>
-    <package name="models">
+<coverage generated="1759087938754" clover="3.2.0">
+  <project timestamp="1759087938754" name="All files">
+    <metrics statements="40" coveredstatements="40" conditionals="8" coveredconditionals="7" methods="10" coveredmethods="10" elements="58" coveredelements="57" complexity="0" loc="40" ncloc="40" packages="4" files="4" classes="4"/>
+    <package name="api">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.js" path="/Users/richardosei/oj/assessments/hmtcs/api/constants.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="api.middleware">
+      <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="validateCaseExists.js" path="/Users/richardosei/oj/assessments/hmtcs/api/middleware/validateCaseExists.js">
+        <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="16" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="api.models">
       <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="case.js" path="/Users/richardosei/oj/assessments/hmtcs/api/models/case.js">
         <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
@@ -12,16 +39,16 @@
         <line num="13" count="8" type="stmt"/>
         <line num="14" count="8" type="stmt"/>
         <line num="15" count="8" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="services">
+    <package name="api.services">
       <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
       <file name="caseService.js" path="/Users/richardosei/oj/assessments/hmtcs/api/services/caseService.js">
         <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
@@ -36,7 +63,7 @@
         <line num="64" count="1" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
-        <line num="77" count="1" type="stmt"/>
+        <line num="77" count="2" type="stmt"/>
       </file>
     </package>
   </project>

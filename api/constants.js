@@ -4,11 +4,11 @@
  * messages object
  */
 
-export const validStatuses = ['OPEN', 'IN_PROGRESS', 'CLOSED'];
+const validStatuses = ['OPEN', 'IN_PROGRESS', 'CLOSED'];
 
-export const validPriorities = ['LOW', 'MEDIUM', 'HIGH'];
+const validPriorities = ['LOW', 'MEDIUM', 'HIGH'];
 
-export const messages = {
+const messages = {
     "status_invalid": "Invalid status. Must be one of: OPEN, IN_PROGRESS, CLOSED",
     "priority_invalid": "Invalid priority. Must be one of: LOW, MEDIUM, HIGH",
     "title_dueDate_required": "Title and due date are required",
@@ -24,3 +24,5 @@ export const messages = {
 
     "internal_server_error": "Internal server error occurred",
 }
+
+module.exports = { validStatuses, validPriorities, messages };
