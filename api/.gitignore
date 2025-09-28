@@ -1,5 +1,49 @@
-node_modules
-# Keep environment variables out of version control
-.env
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-/generated/prisma
+# Environment variables
+.env
+.env.*.local
+
+# Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+tmp/
+temp/
+
+# Prisma generated files
+prisma/migrations/
+prisma/dev.db
+prisma/.env
+
+# Coverage directory
+coverage/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+
+# Optional: lock files if using multiple package managers
+package-lock.json
+yarn.lock
