@@ -21,4 +21,6 @@ export const messages = {
     "case_updated": "Case updated successfully",
     "case_started": "Case started successfully",
     "case_closed": "Case closed successfully",
+
+    "internal_server_error": "Internal server error occurred",
 }
