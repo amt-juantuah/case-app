@@ -1,3 +1,7 @@
+/**
+ * Middleware to validate UUID format in request parameters
+ */
+
 const { validate: isUuid } = require('uuid');
 
 function validateUuidParam(req, res, next) {

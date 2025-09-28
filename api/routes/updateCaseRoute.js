@@ -9,20 +9,15 @@ const validateCaseExists = require('../middleware/validateCaseExists');
 const validateUuidParam = require('../middleware/validateUuidParam');
 
 var express = require('express');
+const { validateStatusField, validatePriorityField } = require('../middleware/validateStatusAndPriority.js');
 var router = express.Router();
 
 // Update the status of a case
-router.patch('/:id/status', validateUuidParam, validateCaseExists, async (req, res, next) => {
+router.patch('/:id/status', validateUuidParam, validateStatusField ,validateCaseExists, async (req, res, next) => {
     try {
-        // const caseId = req.params.id; // string id (UUID)
         const { status } = req.body;
 
-        // Validate status information from request body
         const statusCap = String(status).toUpperCase(); // convert to uppercase for validation
-
-        if (!status || !validStatuses.includes(statusCap)) {
-            return res.status(400).json({ success: false, message: messages.status_invalid });
-        }
 
         const updatedCaseData = {
             status: statusCap,
@@ -42,17 +37,12 @@ router.patch('/:id/status', validateUuidParam, validateCaseExists, async (req, r
 
 
 // Update the priority of a case
-router.patch('/:id/priority', validateUuidParam, validateCaseExists, async (req, res, next) => {
+router.patch('/:id/priority', validateUuidParam, validatePriorityField ,validateCaseExists, async (req, res, next) => {
     try {
-        // const caseId = req.params.id; // string id (UUID)
         const { priority } = req.body;
 
-        // Validate priority information from request body
         const priorityCap = String(priority).toUpperCase(); // convert to uppercase for validation
 
-        if (!priority || !validPriorities.includes(priorityCap)) {
-            return res.status(400).json({ success: false, error: messages.priority_invalid });
-        }
 
         const updatedCaseData = {
             priority: priorityCap,

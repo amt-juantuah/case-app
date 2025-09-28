@@ -22,7 +22,7 @@ const messages = {
     "case_started": "Case started successfully",
     "case_closed": "Case closed successfully",
 
-    "internal_server_error": "Internal server error occurred",
+    "internal_server_error": "Internal server error",
 }
 
 module.exports = { validStatuses, validPriorities, messages };
