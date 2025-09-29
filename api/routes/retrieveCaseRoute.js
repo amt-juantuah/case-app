@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
     try {
         const cases = await CaseService.getAllCases();
 
-        res.json({ success: true, data: cases });
+        res.json({ success: true, data: cases, message: messages.cases_found_all });
 
     } catch (error) {
         next(error);
