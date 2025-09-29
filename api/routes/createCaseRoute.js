@@ -42,7 +42,7 @@ router.post('/', async (req, res, next) => {
 
         const newCase = await CaseService.createCase(newCaseData);
 
-        res.status(201).json({ success: true, data: newCase });
+        res.status(201).json({ success: true, data: newCase, message: messages.case_created });
 
     } catch (error) {
         next(error);

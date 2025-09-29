@@ -16,6 +16,7 @@ const messages = {
     "case_priority_updated": "Case priority updated successfully",
     "case_not_found": "Case not found",
     "case_found": "Case found successfully",
+    "cases_found_all": "All cases found successfully",
     "case_created": "Case created successfully",
     "case_deleted": "Case deleted successfully",
     "case_updated": "Case updated successfully",
