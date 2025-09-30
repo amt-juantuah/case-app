@@ -66,4 +66,12 @@ export async function deleteCase(id) {
     return response.data;
 }
 
+// Generic update case function
+export async function updateCase(id, caseData) {
+    const response = await api.patch(`/cases/${id}`, caseData);
+    return response.data;
+}
+
+// Generic delete case function
+
 export default api;
