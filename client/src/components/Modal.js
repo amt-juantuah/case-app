@@ -3,7 +3,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition, TransitionChild, DialogPanel, DialogTitle } from "@headlessui/react";
 
-export default function CreateCaseModal({ isOpen, onClose, title, children }) {
+export default function Modal({ isOpen, onClose, title, children }) {
     return (
         <Transition show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={onClose}>

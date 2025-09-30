@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAllCases, createCase } from "../services/api";
+import { getAllCases, createCase, deleteCase } from "../services/api";
 import { messages } from "@/constants";
-import CreateCaseModal from "../components/CreateCaseModal";
+import Modal from "../components/Modal";
+import CreateCaseForm from "@/components/CreateCaseForm";
+import EditCaseForm from "@/components/EditCaseForm";
+import DeleteCaseConfirm from "@/components/DeleteCaseConfirm";
 import toast from "react-hot-toast";
 import {
   Layers,
@@ -13,6 +16,8 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUp,
+  Pencil,
+  Trash2
 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -28,7 +33,12 @@ export default function DashboardPage() {
     dueDate: "",
   })
   const [submitting, setSubmitting] = useState(false);
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState("ALL");
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, caseId: null });
+  const [confirmCreateModal, setConfirmCreateModal] = useState({ isOpen: false });
+  const [editCase, setEditCase] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
 
   // Fetch cases from backend
@@ -65,16 +75,8 @@ export default function DashboardPage() {
   const mediumPriority = cases.filter(c => c.priority === messages.medium).length;
   const highPriority = cases.filter(c => c.priority === messages.high).length;
 
-  // Handle filter change with stat tile clicks
-  const displayedCases =
-    filter === null
-      ? cases
-      : filter === "ALL"
-        ? cases
-        : cases.filter(
-          (c) => c.status.toUpperCase() === filter || c.priority.toUpperCase() === filter
-        );
 
+  // Stat tiles/cards
   const tiles = [
     { label: "Total", value: totalCases, key: "ALL", icon: Layers },
     { label: "Open", value: openCases, key: messages.open, icon: FolderOpen },
@@ -85,9 +87,9 @@ export default function DashboardPage() {
     { label: "High Priority", value: highPriority, key: messages.high, icon: ArrowUp },
   ];
 
-  // Handle modal form submission
-  const handleCreateCase = async (e) => {
-    e.preventDefault();
+
+  // Handle  creating a case with modal form submission
+  const handleCreateCase = async () => {
     setSubmitting(true);
     try {
       const response = await createCase(newCase);
@@ -110,19 +112,86 @@ export default function DashboardPage() {
     } catch (err) {
       setError(err.message || messages.failed_to_load_cases);
       toast.error(err.message || messages.failed_to_load_cases);
-    } finally {
-      setSubmitting(false);
     }
   }
 
+  // Delete a case
+  const handleDelete = async (id) => {
+    // After client confirms deletion, send request to backend
+    try {
+      const response = await deleteCase(id);
+
+      if (response.success) {
+        toast.success(response.message);
+        setCases(cases.filter(c => c.id !== id));
+      } else {
+        toast.error(response.message);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setDeleteModal({ isOpen: false, caseId: null });
+    }
+  };
+
+  // Sort cases based on selected key and direction
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  // Handle sorting
+  const sortedCases = [...cases].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+
+    if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
+    if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  // Handle filtering
+  const filteredCases =
+    filter === null
+      ? sortedCases
+      : filter === "ALL"
+        ? sortedCases
+        : sortedCases.filter(
+          (c) => c.status.toUpperCase() === filter || c.priority.toUpperCase() === filter
+        );
+
+
+
+  // Edit Modal
+  const openEditModal = (c) => {
+    setEditCase({
+      ...c
+      // id: c.id,
+      // status: c.status,
+      // priority: c.priority
+    })
+    setIsEditModalOpen(true);
+  };
+
+
   if (loading) {
     return <div className="container mx-auto p-6 bg-gray-900 text-white min-h-screen">
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <Loader className="w-12 h-12 text-blue-400 animate-spin" />
+      </div>
       <p className="text-center mt-10">Loading cases...</p>
     </div>;
   }
   if (error) {
     return <div className="container mx-auto p-6 bg-gray-900 text-white min-h-screen">
-      <p className="text-center mt-10 text-red-500">Loading cases...</p>
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <Loader className="w-12 h-12 text-blue-400 animate-spin" />
+      </div>
+      <p className="text-center mt-10 text-red-500">{error}</p>
     </div>;
   }
 
@@ -148,8 +217,8 @@ export default function DashboardPage() {
                 key={tile.key}
                 onClick={() => setFilter(tile.key)}
                 className={`cursor-pointer rounded-xl shadow-md p-5 flex flex-col justify-between transition-transform transform hover:scale-105 hover:shadow-lg ${filter === tile.key
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-800 text-gray-200 hover:bg-gray-700"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-800 text-gray-200 hover:bg-gray-700"
                   }`}
               >
                 <div className="flex items-center space-x-3">
@@ -168,122 +237,108 @@ export default function DashboardPage() {
           <table className="min-w-full bg-gray-800 rounded">
             <thead>
               <tr className="text-left border-b border-gray-700">
-                <th className="px-4 py-2">Title</th>
-                <th className="px-4 py-2">Description</th>
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">Priority</th>
-                <th className="px-4 py-2">Due Date</th>
+                {["title", "description", "status", "priority", "dueDate"].map((col) => (
+                  <th
+                    key={col}
+                    className="px-4 py-2 cursor-pointer hover:text-blue-400"
+                    onClick={() => handleSort(col)}
+                  >
+                    {col.charAt(0).toUpperCase() + col.slice(1)}
+                    {sortConfig.key === col &&
+                      (sortConfig.direction === "asc" ? " ↑" : " ↓")}
+                  </th>
+                ))}
+                <th className="px-4 py-2">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {displayedCases.map(c => (
+              {filteredCases.map(c => (
                 <tr key={c.id} className="border-b border-gray-700 hover:bg-gray-700">
-                  <td className="px-4 py-2">{c.title}</td>
-                  <td className="px-4 py-2">{c.description || "-"}</td>
+                  <td className="px-4 py-2 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
+                    <a
+                      href={`/cases/${c.id}`}
+                      className="text-blue-400 hover:underline"
+                    >
+                      {c.title}
+                    </a>
+                  </td>
+                  <td className="px-4 py-2 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">{c.description || "-"}</td>
                   <td className="px-4 py-2">{c.status}</td>
                   <td className="px-4 py-2">{c.priority}</td>
                   <td className="px-4 py-2">{new Date(c.dueDate).toLocaleDateString()}</td>
+                  <td className="px-4 py-2 flex gap-2">
+                    <button
+                      onClick={() => openEditModal(c)}
+                      className="p-2 bg-yellow-500 hover:bg-yellow-600 rounded text-white"
+                    >
+                      <Pencil size={16} />
+                    </button>
+                    <button
+                      aria-label="delete"
+                      onClick={() => setDeleteModal({ isOpen: true, caseId: c.id })}
+                      className="p-2 bg-red-600 hover:bg-red-700 rounded text-white"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                    <Modal isOpen={deleteModal.isOpen} onClose={() => setDeleteModal({ isOpen: false, caseId: null })}>
+                      <DeleteCaseConfirm
+                        onDelete={() => handleDelete(deleteModal.caseId)}
+                        onCancel={() => setDeleteModal({ isOpen: false, caseId: null })}
+                      />
+                    </Modal>
+
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-      <CreateCaseModal
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+      >
+        <EditCaseForm
+          caseData={editCase}
+          onSuccess={(updated) =>
+            setCases(prev => prev.map(c => c.id === updated.id ? updated : c))
+          }
+          onClose={() => setIsEditModalOpen(false)}
+        />
+      </Modal>
+      <Modal
         isOpen={isModalOpen}
         onClose={() => { setIsModalOpen(false) }}
       >
+        <CreateCaseForm
+          onSuccess={(newCase) => setCases(prev => [...prev, newCase])}
+          onClose={() => setIsModalOpen(false)}
+        />
 
-        {/* Case Creation Form */}
-        <form onSubmit={handleCreateCase} className="space-y-4">
-
-          {/* ----- Case Title ----- */}
-          <div className="relative group">
-            <label className="block text-sm font-medium mb-1">
-              Case Title <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              required
-              value={newCase.title}
-              onChange={e => setNewCase({ ...newCase, title: e.target.value })}
-              className="w-full p-2 rounded bg-gray-700 text-white"
-            />
+        <Modal
+          isOpen={confirmCreateModal.isOpen}
+          onClose={() => setConfirmCreateModal({ isOpen: false })}
+        >
+          <div className="p-6">
+            <h2 className="text-xl font-bold mb-4">Confirm Case Creation</h2>
+            <p className="mb-6">Are you sure you want to create this case?</p>
+            <div className="flex justify-end gap-3">
+              <button
+                className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded"
+                onClick={() => setConfirmCreateModal({ isOpen: false })}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
+                onClick={handleCreateCase}
+              >
+                Create
+              </button>
+            </div>
           </div>
-
-          {/* ----- Case Description ----- */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Case Description</label>
-            <textarea
-              value={newCase.description}
-              onChange={e => setNewCase({ ...newCase, description: e.target.value })}
-              className="w-full p-2 rounded bg-gray-700 text-white"
-            />
-          </div>
-
-          {/* ----- Case Status ----- */}
-          <div className="relative group">
-            <label className="block text-sm font-medium mb-1">
-              Case Status <span className="text-red-500">*</span>
-            </label>
-            <select
-              required
-              value={newCase.status}
-              onChange={e => setNewCase({ ...newCase, status: e.target.value })}
-              className="w-full p-2 rounded bg-gray-700 text-white"
-            >
-              <option value="OPEN">Open</option>
-              <option value="IN_PROGRESS">In Progress</option>
-              <option value="CLOSED">Closed</option>
-            </select>
-          </div>
-
-          {/* ----- Case Priority ----- */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Case Priority</label>
-            <select
-              required
-              value={newCase.priority}
-              onChange={e => setNewCase({ ...newCase, priority: e.target.value })}
-              className="w-full p-2 rounded bg-gray-700 text-white"
-            >
-              <option value="LOW">Low</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="HIGH">High</option>
-            </select>
-          </div>
-
-
-          {/* ----- Case Due Date ----- */}
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Case Due Date & Time <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="datetime-local"
-              required
-              value={newCase.dueDate}
-              onChange={e => setNewCase({ ...newCase, dueDate: e.target.value })}
-              className="w-full p-2 rounded bg-gray-700 text-white"
-            />
-          </div>
-
-          <span className="absolute left-full ml-2 top-0 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
-            This field is required
-          </span>
-
-          {/* ----- Submit Button ----- */}
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
-            >
-              {submitting ? "Creating..." : "Create"}
-            </button>
-          </div>
-        </form>
-      </CreateCaseModal>
+        </Modal>
+      </Modal>
     </>
   );
 }
