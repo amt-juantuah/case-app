@@ -274,6 +274,7 @@ export default function DashboardPage() {
                       <Pencil size={16} />
                     </button>
                     <button
+                      aria-label="delete"
                       onClick={() => setDeleteModal({ isOpen: true, caseId: c.id })}
                       className="p-2 bg-red-600 hover:bg-red-700 rounded text-white"
                     >

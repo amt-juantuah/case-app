@@ -10,4 +10,5 @@ export const messages = {
     "high": "HIGH",
     "case_updated": "Case updated successfully",
     "no_changes_detected": "No changes detected",
+    "createCaseFailed": "Failed to create case",
 }

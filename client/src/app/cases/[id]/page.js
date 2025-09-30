@@ -136,7 +136,7 @@ export default function CaseViewPage() {
     };
 
     if (loading) return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <div role="status" className="flex justify-center items-center min-h-screen bg-gray-900">
             <Loader className="w-12 h-12 text-blue-400 animate-spin" />
         </div>
     );
@@ -228,8 +228,9 @@ export default function CaseViewPage() {
             >
                 <form onSubmit={handleUpdate} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium mb-1">Status <span className="text-red-500">*</span></label>
+                        <label htmlFor="status" className="block text-sm font-medium mb-1">Status <span className="text-red-500">*</span></label>
                         <select
+                            id="status"
                             value={editFields.status}
                             onChange={e => setEditFields({ ...editFields, status: e.target.value })}
                             className="w-full p-2 rounded bg-gray-700 text-white"
@@ -242,8 +243,9 @@ export default function CaseViewPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-1">Priority <span className="text-red-500">*</span></label>
+                        <label htmlFor="priority" className="block text-sm font-medium mb-1">Priority <span className="text-red-500">*</span></label>
                         <select
+                            id="priority"
                             value={editFields.priority}
                             onChange={e => setEditFields({ ...editFields, priority: e.target.value })}
                             className="w-full p-2 rounded bg-gray-700 text-white"
@@ -282,6 +284,7 @@ export default function CaseViewPage() {
                         Cancel
                     </button>
                     <button
+                        aria-label="Confirm Delete"
                         onClick={handleDelete}
                         disabled={submitting}
                         className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
