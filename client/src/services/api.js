@@ -72,6 +72,4 @@ export async function updateCase(id, caseData) {
     return response.data;
 }
 
-// Generic delete case function
-
 export default api;

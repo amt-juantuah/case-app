@@ -1,67 +1,80 @@
 "use client";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { createCase } from "@/services/api";
 import { messages } from "@/constants";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { caseSchema } from "@/validation/caseSchema";
 
 export default function CreateCaseForm({ onSuccess, onClose }) {
-  const [newCase, setNewCase] = useState({
-    title: "",
-    description: "",
-    status: messages.open,
-    priority: messages.low,
-    dueDate: "",
-  });
-  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(caseSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      status: messages.open,
+      priority: messages.low,
+      dueDate: "",
+    }
+  })
+
+  const onSubmit = async (data) => {
+
     try {
-      const res = await createCase(newCase);
+      const res = await createCase(data);
       if (res.success) {
         toast.success(res.message);
         onSuccess(res.data);
         onClose();
+        reset();
       } else {
         toast.error(res.message || messages.failed_to_load_cases);
       }
     } catch (err) {
       toast.error(err.message || messages.failed_to_load_cases);
-    } finally {
-      setSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
+        {/* Case Title */}
         <label className="block text-sm font-medium mb-1">
           Case Title <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
-          required
-          value={newCase.title}
-          onChange={(e) => setNewCase({ ...newCase, title: e.target.value })}
+          {...register("title")}
           className="w-full p-2 rounded bg-gray-700 text-white"
         />
+        {errors.title && (
+          <p className="text-red-500 text-sm">{errors.title.message}</p>
+        )}
       </div>
 
       <div>
+        {/* Case Description */}
         <label className="block text-sm font-medium mb-1">Description</label>
         <textarea
-          value={newCase.description}
-          onChange={(e) => setNewCase({ ...newCase, description: e.target.value })}
+          {...register("description")}
           className="w-full p-2 rounded bg-gray-700 text-white"
         />
+        {errors.description && (
+          <p className="text-red-500 mt-1 text-sm">{errors.description.message}</p>
+        )}
       </div>
 
       <div>
+        {/* Case Status */}
         <label className="block text-sm font-medium mb-1">Status</label>
         <select
-          value={newCase.status}
-          onChange={(e) => setNewCase({ ...newCase, status: e.target.value })}
+          {...register("status")}
           className="w-full p-2 rounded bg-gray-700 text-white"
         >
           <option value="OPEN">Open</option>
@@ -71,10 +84,10 @@ export default function CreateCaseForm({ onSuccess, onClose }) {
       </div>
 
       <div>
+        {/* Case Priority */}
         <label className="block text-sm font-medium mb-1">Priority</label>
         <select
-          value={newCase.priority}
-          onChange={(e) => setNewCase({ ...newCase, priority: e.target.value })}
+          {...register("priority")}
           className="w-full p-2 rounded bg-gray-700 text-white"
         >
           <option value="LOW">Low</option>
@@ -84,23 +97,27 @@ export default function CreateCaseForm({ onSuccess, onClose }) {
       </div>
 
       <div>
+        {/* Case Due Date */}
         <label className="block text-sm font-medium mb-1">Due Date</label>
         <input
           type="datetime-local"
-          required
-          value={newCase.dueDate}
-          onChange={(e) => setNewCase({ ...newCase, dueDate: e.target.value })}
+          // required
+          {...register("dueDate")}
           className="w-full p-2 rounded bg-gray-700 text-white"
         />
+        {errors.dueDate && (
+          <p className="text-red-500 mt-1 text-sm">{errors.dueDate.message}</p>
+        )}
       </div>
 
+      {/* Submit Button */}
       <div className="flex justify-end">
         <button
           type="submit"
-          disabled={submitting}
+          disabled={isSubmitting}
           className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
         >
-          {submitting ? "Creating..." : "Create Case"}
+          {isSubmitting ? "Creating..." : "Create Case"}
         </button>
       </div>
     </form>
