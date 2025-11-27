@@ -20,7 +20,7 @@ It provides a user interface for managing cases, including creating, editing, de
 
 ## 📦 Tech Stack
 - [React](https://react.dev/)
-- [Next.js](https://nextjs.org/) *(if using Next)*
+- [Next.js](https://nextjs.org/) 
 - [Axios](https://axios-http.com/)
 - [React Hot Toast](https://react-hot-toast.com/)
 - [Jest](https://jestjs.io/) & [Testing Library](https://testing-library.com/)
@@ -85,7 +85,4 @@ The client communicates with the backend API service at:
 ```
 http://localhost:{BACKEND_PORT}
 ```
-
-Make sure the API server is running before using the client.
-
 ---
