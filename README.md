@@ -21,6 +21,7 @@ A full-stack case management system with:
 
 ## 🚀 Features
 - User authentication
+![login-screen](<Screenshot 2025-11-29 at 23.35.36.png>)
 - Manage cases (CRUD operations)
 - Update case status & priority
 - Delete cases with confirmation
