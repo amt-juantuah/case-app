@@ -26,8 +26,15 @@ const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     headers: {
         "Content-Type": "application/json",
+        'x-api-key': process.env.NEXT_PUBLIC_API_KEY
     },
 });
+
+// authorized login
+export async function login(username, password) {
+    const response = await api.post("auth/login", { username, password });
+    return response.data
+}
 
 // Get all Cases 
 export async function getAllCases() {

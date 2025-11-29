@@ -43,6 +43,12 @@ It provides a user interface for managing cases, including creating, editing, de
 
    ```env.local
    NEXT_PUBLIC_API_BASE_URL=API_BASE_URL (Example: "http://localhost:5000")
+   NEXT_PUBLIC_API_KEY=<your_api_key>
+      
+   # Demo user credentials
+   DEMO_USERNAME=admin
+   DEMO_PASSWORD=admin123
+   DEMO_ROLE=demo
    ```
 
 3. Start the development server:

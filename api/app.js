@@ -11,8 +11,10 @@ var createRouter = require('./routes/createCaseRoute');
 var updateRouter = require('./routes/updateCaseRoute');
 var deleteRouter = require('./routes/deleteCaseRoute');
 var retrieveRouter = require('./routes/retrieveCaseRoute');
+var authRouter = require('./routes/authRoute')
 
 const errorHandler = require('./middleware/errorHandler');
+const { validateApiKey } = require('./middleware/validateApiKey');
 
 var app = express();
 
@@ -29,12 +31,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes setup
-app.use('/', indexRouter);
-app.use('/cases', retrieveRouter);
-app.use('/cases', createRouter);
-app.use('/cases', deleteRouter);
-app.use('/cases', updateRouter);
+// Protected Routes setup
+app.use('/', validateApiKey, indexRouter);
+app.use('/cases', validateApiKey, retrieveRouter);
+app.use('/cases', validateApiKey, createRouter);
+app.use('/cases', validateApiKey, deleteRouter);
+app.use('/cases', validateApiKey, updateRouter);
+
+/* authentication route */
+app.use('/auth', validateApiKey, authRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

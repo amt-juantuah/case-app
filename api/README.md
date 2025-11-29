@@ -80,6 +80,10 @@ Create a `.env` file in the root with:
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA_NAME" #your postgresql database connection string
 PORT=5000
 NODE_ENV=development
+API_KEY=<your_api_key>
+DEMO_USERNAME=admin
+DEMO_PASSWORD=admin123
+DEMO_ROLE=demo
 ```
 Note: You will need A PostgreSQL database server running and accessible
 Note: Update your .env file with your PostgreSQL connection string

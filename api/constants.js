@@ -24,6 +24,10 @@ const messages = {
     "case_closed": "Case closed successfully",
 
     "internal_server_error": "Internal server error",
+    "missing_api_key": "API Key is missing",
+    "invalid_api_key": "API Key is invalid",
+    "login_success": "Logged In",
+    "invalid_credentials": "invalid credentials. Login with the right credebtials"
 }
 
 module.exports = { validStatuses, validPriorities, messages };

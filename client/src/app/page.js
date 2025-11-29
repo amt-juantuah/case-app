@@ -17,13 +17,15 @@ import {
   ArrowRight,
   ArrowUp,
   Pencil,
-  Trash2
+  Trash2,
 } from "lucide-react";
+import ErrorPage from "@/components/ErrorPage";
 
 export default function DashboardPage() {
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [errorStack, setErrorStack] = useState({})
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newCase, setNewCase] = useState({
     title: "",
@@ -45,7 +47,6 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchCases = async () => {
       try {
-        console.log(process.env.NEXT_PUBLIC_API_BASE_URL)
         const response = await getAllCases();
 
         if (response.success) {
@@ -55,6 +56,7 @@ export default function DashboardPage() {
         }
       } catch (err) {
         setError(err.message || messages.failed_to_load_cases);
+        setErrorStack(err)
       } finally {
         setLoading(false);
       }
@@ -189,10 +191,11 @@ export default function DashboardPage() {
   }
   if (error) {
     return <div className="container mx-auto p-6 bg-gray-900 text-white min-h-screen">
-      <div className="flex justify-center items-center min-h-screen bg-gray-900">
-        <Loader className="w-12 h-12 text-blue-400 animate-spin" />
-      </div>
-      <p className="text-center mt-10 text-red-500">{error}</p>
+      <ErrorPage 
+        statusCode={errorStack.status} 
+        message={errorStack.response?.statusText} 
+        detail={process.env.NODE_ENV == 'development' && errorStack.response?.data.message || ""}
+      />
     </div>;
   }
 

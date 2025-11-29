@@ -7,7 +7,20 @@ A full-stack case management system with:
 
 ---
 
+## 🛡️🔐 Security of the App
+- Machine-to-machine security (API key security)
+- Simple but secured user authentication (demo user)
+- Environment variables
+- Strict validation of inputs
+- Restricted API
+- Protected routes
+- Protected queries
+- Use of helmet middleware and cors rules
+
+---
+
 ## 🚀 Features
+- User authentication
 - Manage cases (CRUD operations)
 - Update case status & priority
 - Delete cases with confirmation

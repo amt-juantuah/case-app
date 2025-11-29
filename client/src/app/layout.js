@@ -3,6 +3,8 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import {AuthProvider} from "@/components/AuthProvider";
+import AuthUserModal from "@/components/AuthUserModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,10 +27,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        {children}
-        <Footer />
-        <Toaster position="top-right"/>
+        <AuthProvider>
+          <Header />
+          {children}
+          <Footer />
+          <Toaster position="top-right" />
+        </AuthProvider>
       </body>
     </html>
   );
