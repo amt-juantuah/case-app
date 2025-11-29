@@ -39,8 +39,7 @@ It provides a user interface for managing cases, including creating, editing, de
    npm install
    ```
 
-3. Environment variables
-   Create a `.env.local` file in the root with:
+3. Environment variables (Create a `.env.local` file in the client root)
 
    ```env.local
    NEXT_PUBLIC_API_BASE_URL=API_BASE_URL (Example: "http://localhost:5000")
