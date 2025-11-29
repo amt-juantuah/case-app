@@ -47,3 +47,8 @@ build/
 # Optional: lock files if using multiple package managers
 package-lock.json
 yarn.lock
+/generated/prisma
+
+/generated/prisma
+
+/generated/prisma

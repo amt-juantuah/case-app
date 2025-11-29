@@ -23,10 +23,10 @@ A full-stack case management system with:
 project-root/
 ├── api/           # NODE Backend API service
 │   ├── src/       
-│   └── README.md
+│   └── README.md  # Check for backend (api) setup (IMPORTANT)
 ├── client/        # Next.js client app
 │   ├── src/
-│   └── README.md
+│   └── README.md  # Check for frontend (client) setup (IMPORTANT)
 └── README.md      # This file (root README)
 ```
 
@@ -42,24 +42,12 @@ cd case-app
 
 ### 2. Install dependencies
 
-#### API (Backend)
-```bash
-cd api
-npm install
-npm run dev   # starts backend on http://localhost:5000
-```
+#### API (Backend) Setup
+[API README](./api/README.md)
 
-#### Client (Frontend)
-```bash
-cd client
-npm install
-npm start     # or npm run dev (Next.js)
-```
+#### Client (Frontend) Setup
+[CLIENT README](./client/README.md)
 
-The client will run on:
-```
-http://localhost:3000
-```
 
 ---
 

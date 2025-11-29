@@ -63,7 +63,7 @@ api/
 
 ```bash
 git clone https://github.com/amt-juantuah/case-app.git
-cd case-app
+cd case-app/api
 ```
 
 ### 2. Install dependencies
@@ -77,18 +77,26 @@ npm install
 Create a `.env` file in the root with:
 
 ```env
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA_NAME"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA_NAME" #your postgresql database connection string
 PORT=5000
 NODE_ENV=development
 ```
+Note: You will need A PostgreSQL database server running and accessible
+Note: Update your .env file with your PostgreSQL connection string
 
-### 4. Run migrations
+### 4. Create and Run migrations (Based on Prisma ORM)
 
 ```bash
-npx prisma migrate dev --name init
+npx prisma migrate dev --name init;
 ```
 
-This creates the database schema.
+This creates the database tables based on the schema and it also applies first migrations.
+
+```bash
+npx prisma generate;
+```
+
+This generates the Prisma Client.
 
 ### 5. Start the server
 
