@@ -22,14 +22,19 @@ A full-stack case management system with:
 ## 🚀 Features
 - User authentication
 ![login](login.png)
+
 - Manage Cases (View, Sort)
 ![manage](manage.png) ![view](view.png)
+
 - Create cases Tasks
 ![create](create.png)
+
 - Update case status & priority
 ![update](update.png)
+
 - Delete cases with confirmation
 ![delete](delete.png)
+
 - Toast notifications for success/error
 ![toast](toast.png)
 
