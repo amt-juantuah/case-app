@@ -43,12 +43,12 @@ export default function EditCaseForm({ caseData, onSuccess, onClose }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="status" className="block text-sm font-medium mb-1">Status</label>
+        <label htmlFor="status" className="block text-sm text-gray-500 font-bold mb-1">Status</label>
         <select
           id="status"
           value={editCase.status}
           onChange={(e) => setEditCase({ ...editCase, status: e.target.value })}
-          className="w-full p-2 rounded bg-gray-700 text-white"
+          className="w-full p-2 bg-white text-black border border-black"
         >
           <option value="OPEN">Open</option>
           <option value="IN_PROGRESS">In Progress</option>
@@ -57,12 +57,12 @@ export default function EditCaseForm({ caseData, onSuccess, onClose }) {
       </div>
 
       <div>
-        <label htmlFor="priority" className="block text-sm font-medium mb-1">Priority</label>
+        <label htmlFor="priority" className="block text-sm text-gray-500 font-bold mb-1">Priority</label>
         <select
           id="priority"
           value={editCase.priority}
           onChange={(e) => setEditCase({ ...editCase, priority: e.target.value })}
-          className="w-full p-2 rounded bg-gray-700 text-white"
+          className="w-full p-2 bg-white text-black border border-black"
         >
           <option value="LOW">Low</option>
           <option value="MEDIUM">Medium</option>

@@ -183,7 +183,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return <div className="container mx-auto p-6 bg-gray-100 text-black min-h-screen">
-      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+      <div className="flex justify-center items-center min-h-screen bg-gray-200">
         <Loader className="w-12 h-12 text-blue-400 animate-spin" />
       </div>
       <p className="text-center mt-10">Loading cases...</p>
@@ -301,6 +301,7 @@ export default function DashboardPage() {
       <Modal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
+        title={"Edit Case Task"}
       >
         <EditCaseForm
           caseData={editCase}
@@ -313,6 +314,7 @@ export default function DashboardPage() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => { setIsModalOpen(false) }}
+        title={"New Case Task"}
       >
         <CreateCaseForm
           onSuccess={(newCase) => setCases(prev => [...prev, newCase])}

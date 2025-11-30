@@ -136,40 +136,40 @@ export default function CaseViewPage() {
     };
 
     if (loading) return (
-        <div role="status" className="flex justify-center items-center min-h-screen bg-gray-900">
+        <div role="status" className="flex justify-center items-center min-h-screen bg-gray-100">
             <Loader className="w-12 h-12 text-blue-400 animate-spin" />
         </div>
     );
 
     if (error) return (
-        <div className="text-center mt-10 text-red-500 bg-gray-900 min-h-screen flex flex-col items-center justify-center">
+        <div className="text-center mt-10 text-red-500 bg-gray-100 min-h-screen flex flex-col items-center justify-center">
             <p>{error}</p>
             <Link href="/" className="text-blue-400 underline mt-4">Go Back</Link>
         </div>
     );
 
     if (!caseData) return (
-        <div className="text-center mt-10 text-white bg-gray-900 min-h-screen flex flex-col items-center justify-center">
+        <div className="text-center mt-10 text-black bg-gray-100 min-h-screen flex flex-col items-center justify-center">
             <p>Case not found</p>
             <Link href="/" className="text-blue-400 underline mt-4">Go Back</Link>
         </div>
     );
 
     return (
-        <div className="container mx-auto p-6 bg-gray-900 text-white flex flex-col">
+        <div className="container mx-auto p-6 bg-gray-100 text-black border-l-[0.5px] border-l-black flex flex-col">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold">Case Details</h1>
-                <Link href="/" className="text-blue-400 hover:underline">Back</Link>
+                <Link href="/" className="text-blue-600 underline">Back</Link>
             </div>
 
-            <div className="max-w-6xl min-w-full mx-auto bg-gray-800 p-6 rounded-lg shadow-md min-h-[70vh]">
+            <div className="max-w-6xl min-w-full mx-auto bg-gray-100 p-6 border-[0.5px] border-black shadow-md min-h-[70vh]">
                 {/* Title + Actions */}
                 <div className="flex justify-between items-start mb-6">
-                    <h2 className="text-2xl font-bold break-words">{caseData.title}</h2>
+                    <h2 className="text-xl font-bold break-words">{caseData.title}</h2>
                     <div className="flex gap-2">
                         <button
                             onClick={openEditModal}
-                            className="p-2 bg-yellow-500 hover:bg-yellow-600 rounded text-white"
+                            className="p-2 hover:text-white hover:bg-yellow-500 rounded text-yellow-500 border border-yellow-500"
                             aria-label="Edit Case"
                         >
                             <Pencil size={16} />
@@ -191,14 +191,14 @@ export default function CaseViewPage() {
                     <div className="w-1/4 flex flex-col gap-4 sticky top-6 self-start">
                         <div>
                             <span className="font-semibold">Status:</span>
-                            <span className={`ml-2 px-2 py-1 rounded ${getStatusBadgeColor(caseData.status)}`}>
+                            <span className={`ml-2 px-2 py-1 lowercase rounded ${getStatusBadgeColor(caseData.status)}`}>
                                 {caseData.status}
                             </span>
                         </div>
 
                         <div>
                             <span className="font-semibold">Priority:</span>
-                            <span className={`ml-2 px-2 py-1 rounded ${getPriorityBadgeColor(caseData.priority)}`}>
+                            <span className={`ml-2 px-2 py-1 lowercase rounded ${getPriorityBadgeColor(caseData.priority)}`}>
                                 {caseData.priority}
                             </span>
                         </div>
@@ -212,7 +212,7 @@ export default function CaseViewPage() {
                     {/* Right Description */}
                     <div className="w-3/4 flex flex-col">
                         <span className="font-semibold">Description:</span>
-                        <div className="mt-2 flex-1 overflow-auto p-4 bg-gray-700 rounded">
+                        <div className="leading-relaxed font-medium mt-2 flex-1 overflow-auto p-4 bg-gray-300 border-[0.4px] border-black rounded text-justify">
                             {caseData.description || "-"}
                         </div>
                     </div>
@@ -224,16 +224,16 @@ export default function CaseViewPage() {
             <CaseModal
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}
-                title="Edit Case"
+                title="Edit Case Task"
             >
                 <form onSubmit={handleUpdate} className="space-y-4">
                     <div>
-                        <label htmlFor="status" className="block text-sm font-medium mb-1">Status <span className="text-red-500">*</span></label>
+                        <label htmlFor="status" className="block text-sm text-gray-500 font-bold mb-1">Status <span className="text-red-500">*</span></label>
                         <select
                             id="status"
                             value={editFields.status}
                             onChange={e => setEditFields({ ...editFields, status: e.target.value })}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="w-full p-2 bg-white text-black border border-black"
                             required
                         >
                             <option value="OPEN">Open</option>
@@ -243,12 +243,12 @@ export default function CaseViewPage() {
                     </div>
 
                     <div>
-                        <label htmlFor="priority" className="block text-sm font-medium mb-1">Priority <span className="text-red-500">*</span></label>
+                        <label htmlFor="priority" className="block text-sm text-gray-500 font-bold mb-1">Priority <span className="text-red-500">*</span></label>
                         <select
                             id="priority"
                             value={editFields.priority}
                             onChange={e => setEditFields({ ...editFields, priority: e.target.value })}
-                            className="w-full p-2 rounded bg-gray-700 text-white"
+                            className="w-full p-2 bg-white text-black border border-black"
                             required
                         >
                             <option value="LOW">Low</option>
@@ -275,11 +275,11 @@ export default function CaseViewPage() {
                 onClose={() => setIsDeleteModalOpen(false)}
                 title="Confirm Delete"
             >
-                <p>Are you sure you want to delete this case?</p>
+                <p className="text-black mb-6">Are you sure you want to delete this case?</p>
                 <div className="flex justify-end gap-4 mt-4">
                     <button
                         onClick={() => setIsDeleteModalOpen(false)}
-                        className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded"
+                        className="bg-white text-black border border-black hover:bg-gray-600 py-2 px-4"
                     >
                         Cancel
                     </button>
@@ -287,7 +287,7 @@ export default function CaseViewPage() {
                         aria-label="Confirm Delete"
                         onClick={handleDelete}
                         disabled={submitting}
-                        className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                        className="bg-black hover:bg-white hover:text-black text-lg text-white py-2 px-4 outline border border-black transition-all"
                     >
                         {submitting ? "Deleting..." : "Delete"}
                     </button>

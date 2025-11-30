@@ -12,11 +12,11 @@ export default function Header() {
 
         {user && (
           <div className="flex items-center gap-4">
-            <span className="font-medium text-gray-400">
-              {user.username} |
+            <span className="font-medium text-gray-300 font-bold">
+              {user.username} 
             </span>
             <button
-              className="px-3 py-1 bg-red-400 text-white text-sm rounded"
+              className="px-3 py-1 bg-white text-black font-black text-sm outline outline-white-900 cursor-pointer hover:text-white hover:bg-gray-800"
               onClick={logout}
             >
               Sign Out

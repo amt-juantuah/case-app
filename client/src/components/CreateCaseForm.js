@@ -45,14 +45,14 @@ export default function CreateCaseForm({ onSuccess, onClose }) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         {/* Case Title */}
-        <label htmlFor="title" className="block text-sm font-medium mb-1">
+        <label htmlFor="title" className="block text-sm text-gray-500 font-bold mb-1">
           Case Title <span className="text-red-500">*</span>
         </label>
         <input
           id="title"
           type="text"
           {...register("title")}
-          className="w-full p-2 rounded bg-gray-700 text-white"
+          className="w-full p-2 bg-white text-black border border-black"
         />
         {errors.title && (
           <p className="text-red-500 text-sm">{errors.title.message}</p>
@@ -61,11 +61,11 @@ export default function CreateCaseForm({ onSuccess, onClose }) {
 
       <div>
         {/* Case Description */}
-        <label htmlFor="description" className="block text-sm font-medium mb-1">Description</label>
+        <label htmlFor="description" className="text-sm text-gray-500 font-bold block text-sm mb-1">Description</label>
         <textarea
           id="description"
           {...register("description")}
-          className="w-full p-2 rounded bg-gray-700 text-white"
+          className="w-full p-2 bg-white text-black border border-black"
         />
         {errors.description && (
           <p className="text-red-500 mt-1 text-sm">{errors.description.message}</p>
@@ -74,11 +74,11 @@ export default function CreateCaseForm({ onSuccess, onClose }) {
 
       <div>
         {/* Case Status */}
-        <label htmlFor="status" className="block text-sm font-medium mb-1">Status</label>
+        <label htmlFor="status" className="block text-sm text-sm text-gray-500 font-bold mb-1">Status</label>
         <select
           id="status"
           {...register("status")}
-          className="w-full p-2 rounded bg-gray-700 text-white"
+          className="w-full p-2 bg-white text-black border border-black"
         >
           <option value="OPEN">Open</option>
           <option value="IN_PROGRESS">In Progress</option>
@@ -88,11 +88,11 @@ export default function CreateCaseForm({ onSuccess, onClose }) {
 
       <div>
         {/* Case Priority */}
-        <label htmlFor="priority" className="block text-sm font-medium mb-1">Priority</label>
+        <label htmlFor="priority" className="block text-sm text-sm text-gray-500 font-bold mb-1">Priority</label>
         <select
           id="priority"
           {...register("priority")}
-          className="w-full p-2 rounded bg-gray-700 text-white"
+          className="w-full p-2 bg-white text-black border border-black"
         >
           <option value="LOW">Low</option>
           <option value="MEDIUM">Medium</option>
@@ -102,13 +102,13 @@ export default function CreateCaseForm({ onSuccess, onClose }) {
 
       <div>
         {/* Case Due Date */}
-        <label htmlFor="dueDate" className="block text-sm font-medium mb-1">Due Date</label>
+        <label htmlFor="dueDate" className="block text-sm text-sm text-gray-500 font-bold mb-1">Due Date</label>
         <input
           id="dueDate"
           type="datetime-local"
           // required
           {...register("dueDate")}
-          className="w-full p-2 rounded bg-gray-700 text-white"
+          className="w-full p-2 bg-white text-black border border-black"
         />
         {errors.dueDate && (
           <p className="text-red-500 mt-1 text-sm">{errors.dueDate.message}</p>
