@@ -182,7 +182,7 @@ export default function DashboardPage() {
 
 
   if (loading) {
-    return <div className="container mx-auto p-6 bg-gray-900 text-white min-h-screen">
+    return <div className="container mx-auto p-6 bg-gray-100 text-black min-h-screen">
       <div className="flex justify-center items-center min-h-screen bg-gray-900">
         <Loader className="w-12 h-12 text-blue-400 animate-spin" />
       </div>
@@ -190,7 +190,7 @@ export default function DashboardPage() {
     </div>;
   }
   if (error) {
-    return <div className="container mx-auto p-6 bg-gray-900 text-white min-h-screen">
+    return <div className="container mx-auto p-6 bg-gray-100 text-black min-h-screen">
       <ErrorPage 
         statusCode={errorStack.status} 
         message={errorStack.response?.statusText} 
@@ -201,9 +201,9 @@ export default function DashboardPage() {
 
   return (
     <>
-      <div className="container mx-auto p-6 bg-gray-900 text-white min-h-screen">
+      <div className="container mx-auto p-6 bg-gray-100 text-white border-l-[0.5px] border-l-black min-h-screen">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Case Dashboard</h1>
+          <h1 className="text-xl font-bold text-black">Case Dashboard</h1>
           <button
             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
@@ -220,9 +220,9 @@ export default function DashboardPage() {
               <div
                 key={tile.key}
                 onClick={() => setFilter(tile.key)}
-                className={`cursor-pointer rounded-xl shadow-md p-5 flex flex-col justify-between transition-transform transform hover:scale-105 hover:shadow-lg ${filter === tile.key
+                className={`cursor-pointer rounded shadow-md p-5 flex flex-col justify-between transition-transform transform hover:scale-105 hover:shadow-lg ${filter === tile.key
                   ? "bg-blue-600 text-white"
-                  : "bg-gray-800 text-gray-200 hover:bg-gray-700"
+                  : "bg-gray-100 text-black border-black border-[0.5px]"
                   }`}
               >
                 <div className="flex items-center space-x-3">
@@ -238,13 +238,13 @@ export default function DashboardPage() {
 
         {/* Cases Table */}
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-gray-800 rounded">
+          <table className="min-w-full bg-grey-100 text-black rounded text-sm">
             <thead>
-              <tr className="text-left border-b border-gray-700">
+              <tr className="text-left text-white text-sm border-b bg-black">
                 {["title", "description", "status", "priority", "dueDate"].map((col) => (
                   <th
                     key={col}
-                    className="px-4 py-2 cursor-pointer hover:text-blue-400"
+                    className="px-4 py-2 cursor-pointer"
                     onClick={() => handleSort(col)}
                   >
                     {col.charAt(0).toUpperCase() + col.slice(1)}
@@ -257,30 +257,30 @@ export default function DashboardPage() {
             </thead>
             <tbody>
               {filteredCases.map(c => (
-                <tr key={c.id} className="border-b border-gray-700 hover:bg-gray-700">
-                  <td className="px-4 py-2 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
+                <tr key={c.id} className="border mb-4 border-gray-400 hover:shadow">
+                  <td className="px-4 py-2 border-r border-gray-400 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
                     <a
                       href={`/cases/${c.id}`}
-                      className="text-blue-400 hover:underline"
+                      className="text-blue-600 font-semibold hover:underline"
                     >
                       {c.title}
                     </a>
                   </td>
                   <td className="px-4 py-2 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">{c.description || "-"}</td>
-                  <td className="px-4 py-2">{c.status}</td>
-                  <td className="px-4 py-2">{c.priority}</td>
+                  <td className="px-4 lowercase py-2">{c.status}</td>
+                  <td className="px-4 lowercase py-2">{c.priority}</td>
                   <td className="px-4 py-2">{new Date(c.dueDate).toLocaleDateString()}</td>
                   <td className="px-4 py-2 flex gap-2">
                     <button
                       onClick={() => openEditModal(c)}
-                      className="p-2 bg-yellow-500 hover:bg-yellow-600 rounded text-white"
+                      className="p-2 hover:text-white hover:bg-yellow-500 rounded text-yellow-500 border border-yellow-500"
                     >
                       <Pencil size={16} />
                     </button>
                     <button
                       aria-label="delete"
                       onClick={() => setDeleteModal({ isOpen: true, caseId: c.id })}
-                      className="p-2 bg-red-600 hover:bg-red-700 rounded text-white"
+                      className="p-2 hover:text-white hover:bg-red-600 rounded text-red-600 border border-red-600"
                     >
                       <Trash2 size={16} />
                     </button>

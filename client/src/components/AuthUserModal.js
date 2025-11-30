@@ -21,18 +21,18 @@ export default function AuthUserModal() {
 
   if (!showLoginModal) return null;
   return (
-    <div className="fixed inset-0 bg-blue-900 flex flex-col items-center justify-center z-50">
-      <div className="bg-white mb-4 rounded-lg w-full max-w-sm p-2 shadow-xl animate-fadeIn">
-        <h2 className="text-lg font-bold text-center text-pink-900">Secure System: Access Required</h2>
+    <div className="bg-gray-100 fixed inset-0 bg-blue-900 flex flex-col items-center justify-center z-50">
+      <div className="bg-[#1d1d1b] mb-4 w-full max-w-sm p-2 animate-fadeIn">
+        <h2 className="text-lg font-bold text-center text-white">Secure System: Access Required</h2>
       </div>
-      <div className="bg-white rounded-lg w-full max-w-sm p-6 shadow-xl animate-fadeIn">
-        <h2 className="text-xl font-bold mb-4 text-center text-blue-600">Sign In</h2>
+      <div className="bg-gray-100 border-[0.5px] border-black w-full max-w-sm p-6 animate-fadeIn">
+        <h2 className="text-xl font-bold mb-4 text-center text-[#1d1d1b]">Sign In</h2>
 
         <div className="space-y-3">
           <input
             type="text"
             placeholder="Username"
-            className="w-full border-2 rounded-lg p-2 text-gray-400"
+            className="w-full border-[0.5px] border-black p-2 text-gray-400"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -40,14 +40,14 @@ export default function AuthUserModal() {
           <input
             type="password"
             placeholder="Password"
-            className="w-full border-2 rounded-lg p-2 text-gray-400"
+            className="w-full border-[0.5px] border-black p-2 text-gray-400"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
             onClick={handleSubmit}
-            className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition"
+            className="w-full bg-[#1d1d1b] text-white px-4 py-2  font-medium hover:bg-blue-700 transition"
           >
             Login
           </button>

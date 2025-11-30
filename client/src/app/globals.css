@@ -2,7 +2,12 @@
 
 :root {
   --background: #ffffff;
+  --backgroundblack: #1d1d1b;
+  --backgroundblue: #1d609d;
   --foreground: #171717;
+
+  --font: 'BlissPro';
+  --font--alt: Helvetica, sans-serif;
 }
 
 @theme inline {
@@ -20,7 +25,8 @@
 }
 
 body {
-  background: var(--background);
+  background: #f5f5f5;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'BlissPro', Helvetica, sans-serif;
 }
+

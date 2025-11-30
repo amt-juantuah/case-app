@@ -6,7 +6,7 @@ export default function Header() {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-secondary text-white shadow-md">
+    <header className="bg-[#1d1d1b] text-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         <h1 className="text-xl font-bold">Case Management System</h1>
 
@@ -16,7 +16,7 @@ export default function Header() {
               {user.username} |
             </span>
             <button
-              className="px-3 py-1 bg-red-500 text-white rounded"
+              className="px-3 py-1 bg-red-400 text-white text-sm rounded"
               onClick={logout}
             >
               Sign Out
