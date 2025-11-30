@@ -21,22 +21,22 @@ A full-stack case management system with:
 
 ## 🚀 Features
 - User authentication
-![login](login.png)
+![login](./readmePictures/login.png)
 
 - Manage Cases (View, Sort)
-![manage](manage.png) ![view](view.png)
+![manage](./readmePictures/manage.png) ![view](./readmePictures/view.png)
 
 - Create cases Tasks
-![create](create.png)
+![create](./readmePictures/create.png)
 
 - Update case status & priority
-![update](update.png)
+![update](./readmePictures/update.png)
 
 - Delete cases with confirmation
-![delete](delete.png)
+![delete](./readmePictures/delete.png)
 
 - Toast notifications for success/error
-![toast](toast.png)
+![toast](./readmePictures/toast.png)
 
 ---
 
