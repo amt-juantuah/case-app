@@ -21,11 +21,21 @@ A full-stack case management system with:
 
 ## 🚀 Features
 - User authentication
-![login-screen](<Screenshot 2025-11-29 at 23.35.36.png>)
-- Manage cases (CRUD operations)
+![login](login.png)
+- Manage Cases (View, Sort)
+![manage](manage.png) ![view](view.png)
+- Create cases Tasks
+![create](create.png)
 - Update case status & priority
+![update](update.png)
 - Delete cases with confirmation
+![delete](delete.png)
 - Toast notifications for success/error
+![toast](toast.png)
+
+---
+
+## ⚙️ Modern, Tested, Integration
 - Tested frontend & backend
 - Modular architecture (client + api separated)
 
